@@ -137,3 +137,31 @@ CREATE TABLE bind_job (
     FOREIGN KEY (orders_id) REFERENCES orders(id),
     FOREIGN KEY (binders_id) REFERENCES binders(id)
 );
+
+CREATE TABLE print_jobs (
+    id INTEGER PRIMARY KEY,
+    printers_id INTEGER NOT NULL,
+    type TEXT,
+    size TEXT,
+    colour TEXT,
+    rate INTEGER,
+    notes TEXT,
+    approval INTEGER,
+    FOREIGN KEY (printers_id) REFERENCES printers(id)
+);
+
+CREATE TABLE ordered_priting (
+    print_job_id INTEGER PRIMARY KEY,
+    orders_id INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    FOREIGN KEY (print_job_id) REFERENCES print_jobs(id),
+    FOREIGN KEY (orders_id) REFERENCES orders(id)
+);
+
+CREATE TABLE invoices (
+    id INTEGER PRIMARY KEY,
+    date_issue NUMERIC NOT NULL,
+    total INTEGER,
+    status TEXT NOT NULL,
+    date_paid NUMERIC
+);
